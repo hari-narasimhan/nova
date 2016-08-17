@@ -1,7 +1,7 @@
 // Parser grammar for nova
 
 %{
-  var nodes = require('./src/nodes');
+  var nodes = require('./nodes');
 %}
 
 // Based on [MDN Operator Precedence table]
@@ -39,7 +39,6 @@ terminator:
 
 statement:
   expression
-| variableDeclaration
 ;
 
 expression:
@@ -47,6 +46,7 @@ expression:
 | variable
 | property
 | operator
+| call
 | '(' expression ')'
 ;
 
@@ -58,9 +58,16 @@ literal:
 | "{" "}"
 ;
 
-variableDeclaration:
-  "@" IDENTIFIER "=" expression
-| "@" IDENTIFIER
+
+call:
+  IDENTIFIER "(" arguments ")"
+| expression "." IDENTIFIER "(" arguments ")"
+;
+
+arguments:
+  expression
+| arguments "," expression
+|
 ;
 
 variable:
@@ -79,4 +86,8 @@ operator:
 | expression "-" expression
 | expression "*" expression
 | expression "/" expression
+| expression "===" expression
+| expression "!==" expression
+| expression "<=" expression
+| expression ">=" expression
 ;

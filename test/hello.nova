@@ -1,0 +1,27 @@
+# This is nova file
+# the language is similar to coffeescript and javascipt
+# the language can be used to manipulate a context object through expressions
+
+# version.major = 1
+# version.minor = 0
+# partners = ["SYSM", "QRTY"]
+
+# Extraction  Section
+  out.record = extract(in.transaction, a,b)
+
+# Transaction Section
+
+# Filter      Section
+
+# Mapping     Section
+
+# Enrichment  Section
+
+# Clearing    Section
+
+out.clearing.rate         = in.transaction.rate * 100
+out.clearing.impressions  = in.transaction.impressions / 1000
+out.clearing.payout       = out.clearing.impressions * out.clearing.rate
+out.transaction           = in.transaction
+
+out.clearing.nonUS        = in.transaction.country !== "US"

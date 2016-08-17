@@ -1,13 +1,15 @@
-all: clean build
+
+JISON = jison
+
+all: clean parser.js
 
 clean:
-	@echo "removing parser.js"
-	@ rm -rf ./src/parser.js
+		@echo "Cleaning......."
+		@ rm -rf ./src/parser.js
 
-build:
-					@echo "creating the nova parser"
-					@echo "building parser"
-					@ jison ./grammar/parser.jison ./grammar/lexer.jisonlex -o ./src/parser.js
+parser.js: grammar/parser.jison grammar/lexer.jisonlex
+					@echo "Generating nova parser"
+					${JISON} $^ -o src/$@
 
 
-.PHONY: clean build
+.PHONY: clean

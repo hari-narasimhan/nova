@@ -7,8 +7,8 @@
 // comments and whitespace
 
 "#".*                   // ignore comment
-\n+                     // skip newlines
-\s+                     // skip whitspace
+\n+                     return 'NEWLINE';
+\s+                     // skip whitespace
 
 // literals
 [0-9]+\b                return 'NUMBER';
@@ -25,16 +25,16 @@
 [a-zA-Z_]\w*            return 'IDENTIFIER';
 
 // operators
-"is"                    return '===';
-"isnt"                  return '!==';
-"and"                   return '&&';
-"or"                    return '||';
-"gt"                    return '>';
-"gte"                   return '>=';
-"lt"                    return '<';
-"lte"                   return '<=';
+"==="                   return '===';
+"!=="                   return '!==';
+"&&"                    return '&&';
+"||"                    return '||';
+">"                     return '>';
+">="                    return '>=';
+"<"                     return '<';
+"<="                    return '<=';
 
-// catch all rule to match `+`, `-`, `(` `)`
+// catch all rule to match `+`, `-`, `(` `)` etc
 .                       return yytext;
 
 <<EOF>>                 return 'EOF';
