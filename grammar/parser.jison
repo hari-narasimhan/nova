@@ -47,6 +47,7 @@ expression:
 | property
 | operator
 | call
+| arrayLiteral
 | '(' expression ')'
 ;
 
@@ -79,6 +80,24 @@ property:
   expression "." IDENTIFIER
 | expression "." IDENTIFIER
   "=" expression
+;
+
+arrayLiteral:
+  "[" "]"
+| "[" elision "]"
+| "[" elementList "]"
+;
+
+elision:
+  ","
+| elision ","
+;
+
+elementList:
+  expression
+| elision expression
+| elementList "," expression
+| elementList "," elision expression
 ;
 
 operator:
