@@ -11,15 +11,16 @@
 \s+                     // skip whitespace
 
 // literals
-[0-9]+\b                return 'NUMBER';
-[0-9]+\.[0-9]*          return 'NUMBER';
+[0-9]+\.?[0-9]*\b       return 'NUMBER';
+//[0-9]+\.[0-9]*\b      return 'NUMBER';
 \"[^"]*\"               return 'STRING';
 "true"                  return 'TRUE';
 "false"                 return 'FALSE';
 
 
 // keywords
-/* EMPTY AS OF NOW */
+"if"                    return 'IF';
+"else"                  return 'ELSE';
 
 // identifiers
 [a-zA-Z_]\w*            return 'IDENTIFIER';

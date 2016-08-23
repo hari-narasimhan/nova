@@ -2,25 +2,37 @@
 # the language is similar to coffeescript and javascipt
 # the language can be used to manipulate a context object through expressions
 
-version.major = 1
-version.minor = 0
-partners = [find(in.partners, "SYSM"), "PANR"]
+# for our example, let us assume that the context (referred as "in") passed in
+# contains two objects, the contract and the transaction
 
-# Extraction  Section
-  out.record = extract(in.transaction, ["cmb", "cpc", "frt", "zex"])
+# version.major = 1
+# version.minor = 0
 
-# Transaction Section
+party = find(in.contract, in.transaction.partnerCode)
 
-# Filter      Section
 
-# Mapping     Section
+# EXTRACTION SECTION
 
-# Enrichment  Section
+# TRANSACTION SECTION
 
-# Clearing    Section
-isUS        = in.transaction.country === "US"
+# FILTER SECTION
 
-out.clearing.rate         = in.transaction.rate * 100
+out.transaction = filter ( in.transaction, ["cpc", "impressions", ""])
+
+# MAPPING SECTION
+
+# ENRICHMENT SECTION
+
+# CLEARING SECTION
+isUS = in.transaction.country === "US"
+
+if (isUS) {
+  out.clearing.country = "US"
+} else {
+  out.clearing.country = "OTHER"
+}
+
+out.clearing.rate         = in.contract.rate * 100
 out.clearing.impressions  = in.transaction.impressions / 1000
 out.clearing.payout       = out.clearing.impressions * out.clearing.rate
 out.transaction           = in.transaction

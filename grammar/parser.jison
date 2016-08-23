@@ -34,11 +34,27 @@ statements:
 ;
 
 terminator:
-  NEWLINE
+  NEWLINE?
 ;
 
 statement:
   expression
+| ifStatement
+;
+
+ifStatement:
+  IF expression openBrace statement closeBrace
+| IF expression openBrace statement closeBrace ELSE openBrace statement closeBrace
+;
+
+openBrace:
+  "{" NEWLINE*
+| "{"
+;
+
+closeBrace:
+  NEWLINE* "}"
+| "}"
 ;
 
 expression:
